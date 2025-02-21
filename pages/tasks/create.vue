@@ -46,16 +46,20 @@
     status: 'pending'
   })
   
+  // Get the token from localStorage
+  const token = localStorage.getItem('token')
+  
   const createTask = async () => {
     try {
       await fetch('http://localhost:5000/tasks', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`  // Include token in the request headers
         },
         body: JSON.stringify(task.value)
       })
-      router.push('/')
+      router.push('/tasks')
     } catch (error) {
       console.error('Error creating task:', error)
     }
